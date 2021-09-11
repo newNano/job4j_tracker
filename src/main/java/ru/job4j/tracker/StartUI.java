@@ -5,7 +5,7 @@ public class StartUI {
         boolean run = true;
         while (run) {
             showMenu();
-            int select = Integer.parseInt(input.askStr("Select command: "));
+            int select = input.askInt("Select command: ");
             if (select == 0) {
                 System.out.println("=== Create a new Item ====");
                 String name = input.askStr("Enter name: ");
