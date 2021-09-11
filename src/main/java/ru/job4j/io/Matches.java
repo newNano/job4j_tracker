@@ -9,7 +9,6 @@ public class Matches {
         boolean turn = true;
         int count = 11;
         while (count > 0) {
-            boolean isNotCorrect = true;
             System.out.println("Количество спичек на столе " + count);
             String player = turn ? "Первый игрок" : "Второй игрок";
             if (count < 4) {
@@ -17,14 +16,9 @@ public class Matches {
                 break;
             }
             int matches = 0;
-            while (isNotCorrect) {
+            while (matches < 1 || matches > 3) {
                 System.out.print(player + " введите число от 1 до 3: ");
                 matches = Integer.parseInt(input.nextLine());
-                if (matches > 0 && matches < 4) {
-                    isNotCorrect = false;
-                } else {
-                    System.out.println("Значение вне диапазона.");
-                }
             }
             count -= matches;
             turn = !turn;
