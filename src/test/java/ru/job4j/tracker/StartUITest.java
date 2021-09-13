@@ -9,7 +9,7 @@ public class StartUITest {
 
     @Test
     public void whenAddItem() {
-        String[] answers = {"Fix PC", "X"};
+        String[] answers = {"Fix PC"};
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
         StartUI.createItem(input, tracker);
