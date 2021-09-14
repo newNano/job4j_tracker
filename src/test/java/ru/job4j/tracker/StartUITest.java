@@ -69,7 +69,69 @@ public class StartUITest {
         new StartUI(out).init(in, tracker, actions);
         assertThat(out.toString(), is(
                 "Menu." + System.lineSeparator()
-                       + "0. Exit" + System.lineSeparator()
+                        + "0. Exit" + System.lineSeparator()
         ));
+    }
+
+    @Test
+    public void whenFindAllItems() {
+        Output output = new ConsoleOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("item-1"));
+        tracker.add(new Item("item-2"));
+        tracker.add(new Item("item-3"));
+        Input in = new StubInput(
+                new String[]{"0", "1"}
+        );
+        UserAction[] actions = {
+                new ShowingAllItems(output),
+                new ExitAction()
+        };
+        new StartUI(output).init(in, tracker, actions);
+        assertThat(tracker.findAll()[0].getName(), is("item-1"));
+        assertThat(tracker.findAll()[1].getName(), is("item-2"));
+        assertThat(tracker.findAll()[2].getName(), is("item-3"));
+    }
+
+    @Test
+    public void whenFindItemsByName() {
+        Output output = new ConsoleOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("itemA"));
+        tracker.add(new Item("itemB"));
+        tracker.add(new Item("itemC"));
+        tracker.add(new Item("itemA"));
+        tracker.add(new Item("itemC"));
+        String name = "itemA";
+        Input in = new StubInput(
+                new String[]{"0", name, "1"}
+        );
+        UserAction[] actions = {
+                new FindItemsByNameAction(output),
+                new ExitAction()
+        };
+        new StartUI(output).init(in, tracker, actions);
+        assertThat(tracker.findByName(name)[0].getName(), is("itemA"));
+        assertThat(tracker.findByName(name)[1].getName(), is("itemA"));
+    }
+
+    @Test
+    public void whenFindItemById() {
+        Output output = new ConsoleOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("itemA"));
+        tracker.add(new Item("itemB"));
+        tracker.add(new Item("itemC"));
+        tracker.add(new Item("itemD"));
+        tracker.add(new Item("itemE"));
+        Input in = new StubInput(
+                new String[]{"0", "4", "1"}
+        );
+        UserAction[] actions = {
+                new FindItemByIdAction(output),
+                new ExitAction()
+        };
+        new StartUI(output).init(in, tracker, actions);
+        assertThat(tracker.findById(4).getName(), is("itemD"));
     }
 }
