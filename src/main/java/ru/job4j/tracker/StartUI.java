@@ -32,10 +32,13 @@ public class StartUI {
         Output output = new ConsoleOutput();
         Input input = new ValidateInput(output, new ConsoleInput());
         Tracker tracker = new Tracker();
-        UserAction[] actions = {new CreateAction(output), new ShowingAllItems(output),
-                new ReplaceAction(output), new DeleteAction(output),
-                new FindItemByIdAction(output), new FindItemsByNameAction(output),
-                new ExitAction()};
+        UserAction[] actions = {new CreateAction(output),
+                                new ShowingAllItems(output),
+                                new ReplaceAction(output),
+                                new DeleteAction(output),
+                                new FindItemByIdAction(output),
+                                new FindItemsByNameAction(output),
+                                new ExitAction()};
         new StartUI(output).init(input, tracker, actions);
     }
 }
