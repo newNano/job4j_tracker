@@ -3,7 +3,13 @@ package ru.job4j.trackerlist;
 import ru.job4j.trackerlist.inputimpl.ConsoleInput;
 import ru.job4j.trackerlist.inputimpl.ValidateInput;
 import ru.job4j.trackerlist.outimpl.ConsoleOutput;
-import ru.job4j.trackerlist.useractionimpl.*;
+import ru.job4j.trackerlist.useractionimpl.CreateAction;
+import ru.job4j.trackerlist.useractionimpl.DeleteAction;
+import ru.job4j.trackerlist.useractionimpl.ExitAction;
+import ru.job4j.trackerlist.useractionimpl.FindItemByIdAction;
+import ru.job4j.trackerlist.useractionimpl.FindItemsByNameAction;
+import ru.job4j.trackerlist.useractionimpl.ReplaceAction;
+import ru.job4j.trackerlist.useractionimpl.ShowingAllItems;
 
 public class StartUI {
     private final Output out;
