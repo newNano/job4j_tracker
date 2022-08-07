@@ -1,7 +1,7 @@
 package ru.job4j.collection.map.certification;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +11,8 @@ public class AnalyzeByMap {
         double sumScore = 0.0;
         int countSubjects = 0;
         for (Pupil pupil : pupils) {
-            sumScore += pupil.getSumScoreSubjects();
-            countSubjects += pupil.getCountSubjects();
+            sumScore += getSumScoreSubjectsPupil(pupil.subjects());
+            countSubjects += getCountSubjectsPupil(pupil.subjects());
         }
         return sumScore / countSubjects;
     }
@@ -20,7 +20,9 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreByPupil(List<Pupil> pupils) {
         List<Label> averageScoresByPupilsList = new ArrayList<>();
         for (Pupil pupil : pupils) {
-            averageScoresByPupilsList.add(new Label(pupil.name(), pupil.getAverageScore()));
+            averageScoresByPupilsList.add(
+                    new Label(pupil.name(), getAverageScorePupil(pupil.subjects()))
+            );
         }
         return averageScoresByPupilsList;
     }
@@ -38,32 +40,26 @@ public class AnalyzeByMap {
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        Map<Double, Label> bestStudent = new HashMap<>();
-        double maxScore = 0.0;
+        List<Label> sumScoresByPupilsList = new ArrayList<>();
         for (Pupil pupil : pupils) {
-            double sumScoresPupil = pupil.getSumScoreSubjects();
-            if (sumScoresPupil > maxScore) {
-                maxScore = sumScoresPupil;
-            }
-            bestStudent.put(
-                    sumScoresPupil,
-                    new Label(pupil.name(), sumScoresPupil)
+            sumScoresByPupilsList.add(
+                    new Label(pupil.name(), getSumScoreSubjectsPupil(pupil.subjects()))
             );
         }
-        return bestStudent.get(maxScore);
+        sumScoresByPupilsList.sort(Comparator.naturalOrder());
+        return sumScoresByPupilsList.get(sumScoresByPupilsList.size() - 1);
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
+        List<Label> sumsScoresBySubjectsList = new ArrayList<>();
         Map<String, Integer> sumsScoreBySubject = getScoreBySubjectMap(pupils);
-        int maxScore = 0;
-        String nameSubject = null;
         for (Map.Entry<String, Integer> entry : sumsScoreBySubject.entrySet()) {
-            if (entry.getValue() > maxScore) {
-                maxScore = entry.getValue();
-                nameSubject = entry.getKey();
-            }
+            sumsScoresBySubjectsList.add(
+                    new Label(entry.getKey(), entry.getValue())
+            );
         }
-        return new Label(nameSubject, maxScore);
+        sumsScoresBySubjectsList.sort(Comparator.naturalOrder());
+        return sumsScoresBySubjectsList.get(sumsScoresBySubjectsList.size() - 1);
     }
 
     public static Map<String, Integer> getScoreBySubjectMap(List<Pupil> pupils) {
@@ -76,9 +72,25 @@ public class AnalyzeByMap {
                 if (sumsScoreBySubject.containsKey(currentSubject)) {
                     score = sumsScoreBySubject.get(currentSubject);
                 }
-                sumsScoreBySubject.put(subject.name(), subject.score() + score);
+                sumsScoreBySubject.put(currentSubject, subject.score() + score);
             }
         }
         return sumsScoreBySubject;
+    }
+
+    public static double getSumScoreSubjectsPupil(List<Subject> subjects) {
+        double sum = 0;
+        for (Subject subject : subjects) {
+            sum += subject.score();
+        }
+        return sum;
+    }
+
+    public static int getCountSubjectsPupil(List<Subject> subjects) {
+        return subjects.size();
+    }
+
+    public static double getAverageScorePupil(List<Subject> subjects) {
+        return getSumScoreSubjectsPupil(subjects) / getCountSubjectsPupil(subjects);
     }
 }
