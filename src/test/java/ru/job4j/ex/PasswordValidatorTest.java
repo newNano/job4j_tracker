@@ -15,41 +15,67 @@ class PasswordValidatorTest {
     }
 
     @Test
-    public void whenPasswordLengthIsNotCorrect() {
-        String rsl = PasswordValidator.validate("udbvrf7");
-        assertThat(rsl).isEqualTo("Длина пароля должна находится в диапазоне [8, 32]");
+    public void whenThrowExceptionPasswordLengthIsNotCorrect() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> PasswordValidator.validate("udbvrf7")
+        );
+        assertThat(exception.getMessage()).isEqualTo(
+                "Длина пароля должна находится в диапазоне [8, 32]"
+        );
     }
 
     @Test
-    public void whenPasswordNotContainsUpperCaseLetter() {
-        String rsl = PasswordValidator.validate("password123");
-        assertThat(rsl).isEqualTo("Пароль должен содержать хотя бы один символ в верхнем регистре");
+    public void whenThrowExceptionPasswordNotContainsUpperCaseLetter() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> PasswordValidator.validate("password123")
+        );
+        assertThat(exception.getMessage()).isEqualTo(
+                "Пароль должен содержать хотя бы один символ в верхнем регистре"
+        );
     }
 
     @Test
-    public void whenPasswordNotContainsLowerCaseLetter() {
-        String rsl = PasswordValidator.validate("PASSWORD12");
-        assertThat(rsl).isEqualTo("Пароль должен содержать хотя бы один символ в нижнем регистре");
+    public void whenThrowExceptionPasswordNotContainsLowerCaseLetter() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> PasswordValidator.validate("PASSWORD12")
+        );
+        assertThat(exception.getMessage()).isEqualTo(
+                "Пароль должен содержать хотя бы один символ в нижнем регистре"
+        );
     }
 
     @Test
-    public void whenPasswordNotContainsDigit() {
-        String rsl = PasswordValidator.validate("PASSWORDpassword");
-        assertThat(rsl).isEqualTo("Пароль должен содержать хотя бы одну цифру");
+    public void whenThrowExceptionPasswordNotContainsDigit() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> PasswordValidator.validate("PASSWORDpassword$")
+        );
+        assertThat(exception.getMessage()).isEqualTo(
+                "Пароль должен содержать хотя бы одну цифру"
+        );
     }
 
     @Test
-    public void whenPasswordNotContainsSpecialSymbol() {
-        String rsl = PasswordValidator.validate("PASSWORDpassword123");
-        assertThat(rsl).isEqualTo(
+    public void whenThrowExceptionPasswordNotContainsSpecialSymbol() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> PasswordValidator.validate("PASSWORDpassword123")
+        );
+        assertThat(exception.getMessage()).isEqualTo(
                 "Пароль должен содержать хотя бы один спец. символ (не цифра и не буква)"
         );
     }
 
     @Test
-    public void whenPasswordContainsSubstringQwerty() {
-        String rsl = PasswordValidator.validate("QweRtYord123#");
-        assertThat(rsl).isEqualTo(
+    public void whenThrowExceptionPasswordContainsSubstringQwerty() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> PasswordValidator.validate("QweRtYord123#")
+        );
+        assertThat(exception.getMessage()).isEqualTo(
                 "Пароль не должен содержать подстрок без учета регистра: "
                         + "qwerty, 12345, password, admin, user"
         );
