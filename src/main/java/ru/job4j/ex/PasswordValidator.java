@@ -30,6 +30,13 @@ public class PasswordValidator {
             if (!Character.isLetterOrDigit(c)) {
                 isContainsSpecialSymbol = true;
             }
+
+            if (isContainsUpperCaseLetter
+                && isContainsLowerCaseLetter
+                && isContainsDigit
+                && isContainsSpecialSymbol) {
+                break;
+            }
         }
 
         if (!isContainsUpperCaseLetter) {
