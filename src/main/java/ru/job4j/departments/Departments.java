@@ -9,17 +9,13 @@ import java.util.Set;
 public class Departments {
     public static List<String> fillGaps(List<String> deps) {
         Set<String> tmp = new LinkedHashSet<>();
-        StringBuilder start = new StringBuilder();
         for (String value : deps) {
             String[] strArr = value.split("/");
-            start.append(strArr[0]);
-            tmp.add(start.toString());
-
-            for (int i = 1; i < strArr.length; i++) {
-                start.append("/").append(strArr[i]);
-                tmp.add(start.toString());
+            String start = "";
+            for (int i = 0; i < strArr.length; i++) {
+                start = i != 0 ? (start + "/" + strArr[i]) : strArr[0];
+                tmp.add(start);
             }
-            start.setLength(0);
         }
         return new ArrayList<>(tmp);
     }
