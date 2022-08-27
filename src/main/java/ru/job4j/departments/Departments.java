@@ -10,10 +10,9 @@ public class Departments {
     public static List<String> fillGaps(List<String> deps) {
         Set<String> tmp = new LinkedHashSet<>();
         for (String value : deps) {
-            String[] strArr = value.split("/");
             String start = "";
-            for (int i = 0; i < strArr.length; i++) {
-                start = i != 0 ? (start + "/" + strArr[i]) : strArr[0];
+            for (String el : value.split("/")) {
+                start += "".equals(start) ? el : ("/" + el);
                 tmp.add(start);
             }
         }
