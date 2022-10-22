@@ -40,7 +40,7 @@ public class Analyze {
                 .entrySet().stream()
                 .max(Comparator.comparing(Map.Entry::getValue))
                 .map(entry -> new Tuple(entry.getKey(), entry.getValue()))
-                .get();
+                .orElse(null);
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
@@ -50,6 +50,6 @@ public class Analyze {
                 .entrySet().stream()
                 .max(Comparator.comparing(Map.Entry::getValue))
                 .map(entry -> new Tuple(entry.getKey(), entry.getValue()))
-                .get();
+                .orElse(null);
     }
 }
