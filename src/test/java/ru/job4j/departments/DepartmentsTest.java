@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DepartmentsTest {
+
     @Test
     public void whenMissed() {
         List<String> input = Arrays.asList("k1/sk1", "k2/sk1");
