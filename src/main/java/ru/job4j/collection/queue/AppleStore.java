@@ -6,7 +6,6 @@ public class AppleStore {
 
     private final Queue<Customer> queue;
     private final int count;
-    private int c = 1;
 
     public AppleStore(Queue<Customer> queue, int count) {
         this.queue = queue;
@@ -14,7 +13,7 @@ public class AppleStore {
     }
 
     public String getLastHappyCustomer() {
-        while (c++ < count) {
+        for (int i = 1; i < count; i++) {
             queue.poll();
         }
         return queue.poll().name();
